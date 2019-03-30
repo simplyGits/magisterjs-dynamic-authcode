@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@magisterjs/authcode": "*"
+    "@magisterjs/authcode": "*",
+    "@babel/parser": "^7.4.2",
+    "htmlparser": "^1.7.7",
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -16,6 +19,10 @@
   },
   "keywords": [],
   "author": "Lieuwe Rooijakkers <lieuwerooijakkers@gmail.com> (http://www.lieuwe.xyz/)",
+  "contributors": [
+    "Lieuwe Rooijakkers <lieuwerooijakkers@gmail.com> (http://www.lieuwe.xyz/)",
+    "Tom Smeding <tom.smeding@gmail.com> (https://tomsmeding.com)"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/simplyGits/magisterjs-dynamic-authcode/issues"
