@@ -1,5 +1,5 @@
 {
-  "name": "mjs-authcode-getter",
+  "name": "mjs-authcode-source-parser",
   "version": "0.1.0",
   "description": "Obtain the magister authcode directly from its source code",
   "main": "getAuthcode.js",
