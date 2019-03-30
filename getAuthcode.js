@@ -1,9 +1,6 @@
-const fs = require("fs");
 const babelParser = require("@babel/parser");
 const getAccountJS = require("./getAccountJS.js");
 const symbolicExecute = require("./symbolicExecute.js");
-
-const cachePath = ".cache.getAuthCode.txt";
 
 function getMainCall(js) {
 	if (js.program.body.length != 1) {
@@ -428,21 +425,9 @@ function getAuthcode(js) {
 	return authcode;
 }
 
-async function getAuthcodeFromNet(useCache) {
-	let text;
-	if (useCache) {
-		try {
-			text = fs.readFileSync(cachePath).toString();
-		} catch(e) {}
-	}
-
-	if (text == null) text = await getAccountJS();
-
-	if (useCache) fs.writeFileSync(cachePath, text);
-
+async function getAuthcodeFromNet() {
+	const text = await getAccountJS();
 	return getAuthcode(babelParser.parse(text));
 }
 
 module.exports = getAuthcodeFromNet;
-
-// getAuthcode().then(r => console.log(r));
