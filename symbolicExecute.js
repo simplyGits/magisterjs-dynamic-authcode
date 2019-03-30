@@ -78,16 +78,16 @@ const executors = {
 			}
 		}
 
-		return function(env2, args) {
+		return function(args) {
 			const scope = {};
 			for (let i = 0; i < ex.params.length; i++) {
 				// Properly becomes undefined if i >= args.length
 				scope[ex.params[i].name] = args[i];
 			}
 
-			env2.push(scope);
-			const ret = exec(env2, ex.body);
-			env2.pop();
+			env.push(scope);
+			const ret = exec(env, ex.body);
+			env.pop();
 			return ret;
 		};
 	},
@@ -160,7 +160,7 @@ const executors = {
 		if (symMagic in callee) {
 			return callee.functionCall(args);
 		} else if (typeof callee == "function") {
-			return callee(env, args);
+			return callee(args);
 		} else {
 			throw new Error("Cannot call non-function");
 		}
