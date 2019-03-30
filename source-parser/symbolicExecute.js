@@ -131,7 +131,7 @@ const executors = {
 
 				return value;
 			} else {
-				throw new Error("Unsupported member property " + key);
+				throw new Error("Unsupported member property " + ex.left.property.type);
 			}
 		} else if (ex.left.type == "Identifier") {
 			const value = exec(env, ex.right);
