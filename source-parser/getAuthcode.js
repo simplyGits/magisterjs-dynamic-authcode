@@ -32,7 +32,7 @@ function findNode(js, predicate) {
 	if (Array.isArray(js)) {
 		for (const item of js) {
 			const res = findNode(item, predicate)
-			if (res !== null) {
+			if (res != null) {
 				return res
 			}
 		}
@@ -53,7 +53,7 @@ function findNode(js, predicate) {
 	case 'IfStatement':
 		return findNode(js.test, predicate) ||
 					findNode(js.consequent, predicate) ||
-					(js.alternate !== null && findNode(js.alternate, predicate)) ||
+					(js.alternate != null && findNode(js.alternate, predicate)) ||
 					null
 
 	case 'ThrowStatement':
@@ -64,15 +64,15 @@ function findNode(js, predicate) {
 
 	case 'TryStatement':
 		return findNode(js.block, predicate) ||
-					(js.handler !== null && findNode(js.handler, predicate)) ||
+					(js.handler != null && findNode(js.handler, predicate)) ||
 					findNode(js.guardedHandlers, predicate) ||
-					(js.finalizer !== null && findNode(js.finalizer, predicate)) ||
+					(js.finalizer != null && findNode(js.finalizer, predicate)) ||
 					null
 
 	case 'ForStatement':
-		return (js.init !== null && findNode(js.init, predicate)) ||
-					(js.test !== null && findNode(js.test, predicate)) ||
-					(js.update !== null && findNode(js.update, predicate)) ||
+		return (js.init != null && findNode(js.init, predicate)) ||
+					(js.test != null && findNode(js.test, predicate)) ||
+					(js.update != null && findNode(js.update, predicate)) ||
 					findNode(js.body, predicate) ||
 					null
 
@@ -94,7 +94,7 @@ function findNode(js, predicate) {
 		return null
 
 	case 'CatchClause':
-		return (js.param !== null && findNode(js.param, predicate)) ||
+		return (js.param != null && findNode(js.param, predicate)) ||
 					findNode(js.body, predicate) ||
 					null
 
@@ -103,7 +103,7 @@ function findNode(js, predicate) {
 
 	case 'VariableDeclarator':
 		return findNode(js.id, predicate) ||
-					(js.init !== null && findNode(js.init, predicate)) ||
+					(js.init != null && findNode(js.init, predicate)) ||
 					null
 
 	case 'ObjectProperty':
@@ -298,7 +298,7 @@ function getAuthcode(js) {
 			[ isStringLiteral(s => s === 'challengeService'), _ => true ]
 		)
 	)
-	if (serviceCall === null) {
+	if (serviceCall == null) {
 		throw new Error('No call to _.service("challengeService", _) found!')
 	}
 
@@ -322,7 +322,7 @@ function getAuthcode(js) {
 		)
 	)
 
-	if (csFunction === null) {
+	if (csFunction == null) {
 		throw new Error('Could not find definition of challengeService variable')
 	}
 
@@ -339,7 +339,7 @@ function getAuthcode(js) {
 		)
 	)
 
-	if (asdAssignment === null) {
+	if (asdAssignment == null) {
 		throw new Error('Could not find definition of addSessionData method')
 	}
 
@@ -381,7 +381,7 @@ function getAuthcode(js) {
 		)
 	)
 
-	if (retAsg === null) {
+	if (retAsg == null) {
 		throw new Error('Return statement with the authcode construction not found')
 	}
 
@@ -405,7 +405,7 @@ function getAuthcode(js) {
 				)
 			)
 
-			if (partsArray[i] === null) {
+			if (partsArray[i] == null) {
 				throw new Error('Can\'t find assignment to authcode part ' + name)
 			}
 
