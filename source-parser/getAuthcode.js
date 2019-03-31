@@ -431,8 +431,8 @@ function getAuthcode(js) {
 	return authcode
 }
 
-async function getAuthcodeFromNet(timeout) {
-	const text = await getAccountJS(timeout)
+async function getAuthcodeFromNet(signal) {
+	const text = await getAccountJS(signal)
 	return getAuthcode(babelParser.parse(text))
 }
 

@@ -37,13 +37,13 @@ function generateID() {
 	return res
 }
 
-async function openidConfiguration(timeout) {
+async function openidConfiguration(signal) {
 	const url = accountsUrl + '/.well-known/openid-configuration'
-	return JSON.parse(await fetchText(url, timeout))
+	return JSON.parse(await fetchText(url, signal))
 }
 
-async function getLoginHTML(timeout) {
-	const config = await openidConfiguration(timeout)
+async function getLoginHTML(signal) {
+	const config = await openidConfiguration(signal)
 	const authorizeEndpoint = config.authorization_endpoint
 
 	const url = buildURL(authorizeEndpoint, {
@@ -55,11 +55,11 @@ async function getLoginHTML(timeout) {
 		'nonce': generateID(),
 	})
 
-	return await fetchText(url, timeout)
+	return await fetchText(url, signal)
 }
 
-async function getJSurl(timeout) {
-	const html = await getLoginHTML(timeout)
+async function getJSurl(signal) {
+	const html = await getLoginHTML(signal)
 
 	const handler = new htmlparser.DefaultHandler(function(err, dom) {
 		if (err) {
@@ -78,8 +78,8 @@ async function getJSurl(timeout) {
 	throw new Error('Script element not found in page')
 }
 
-async function getAccountJS(timeout) {
-	return await fetchText(await getJSurl(timeout), timeout)
+async function getAccountJS(signal) {
+	return await fetchText(await getJSurl(signal), signal)
 }
 
 module.exports = getAccountJS

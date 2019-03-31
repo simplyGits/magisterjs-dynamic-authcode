@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@magisterjs/authcode": "*",
     "@babel/parser": "^7.4.2",
+    "@magisterjs/authcode": "*",
+    "abort-controller": "^3.0.0",
     "htmlparser": "^1.7.7",
     "node-fetch": "^2.3.0"
   },

@@ -1,5 +1,6 @@
 const https = require('https')
-const getAuthcodeFromNet = require('./source-parser/getAuthcode.js')
+const getParsedAuthcode = require('./source-parser/getAuthcode.js')
+const AbortController = require('abort-controller')
 
 const URL = 'https://raw.githubusercontent.com/simplyGits/magisterjs-authcode/master/code.json'
 
@@ -32,6 +33,18 @@ const req = function (timeout) {
 
 		request.setTimeout(timeout, () => rej('timeout hit'))
 	})
+}
+
+async function getAuthcodeFromNet(timeout) {
+	const controller = new AbortController()
+	const handle = setTimeout(
+		() => controller.abort(),
+		timeout,
+	)
+
+	const res = await getParsedAuthcode(controller.signal)
+	clearTimeout(handle)
+	return res
 }
 
 module.exports = function (timeout = 1500) {
