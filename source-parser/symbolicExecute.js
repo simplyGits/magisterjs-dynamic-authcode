@@ -26,7 +26,7 @@ const executors = {
 		env.push({})
 		for (const item of block.body) {
 			const ret = exec(env, item)
-			if (ret != null && symReturn in ret) {
+			if (typeof ret === "object" && symReturn in ret) {
 				retval = ret.value
 				break
 			}
@@ -41,10 +41,16 @@ const executors = {
 	},
 
 	IfStatement: function(env, st) {
+		let ret = undefined
+
 		if (exec(env, st.test)) {
-			exec(env, st.consequent)
+			ret = exec(env, st.consequent)
 		} else if (st.alternate != null) {
-			exec(env, st.alternate)
+			ret = exec(env, st.alternate)
+		}
+
+		if (typeof ret === "object" && symReturn in ret) {
+			return ret
 		}
 	},
 
