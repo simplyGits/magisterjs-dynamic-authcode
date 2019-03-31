@@ -52,9 +52,9 @@ function findNode(js, predicate) {
 
 	case 'IfStatement':
 		return findNode(js.test, predicate) ||
-					findNode(js.consequent, predicate) ||
-					(js.alternate != null && findNode(js.alternate, predicate)) ||
-					null
+				findNode(js.consequent, predicate) ||
+				(js.alternate != null && findNode(js.alternate, predicate)) ||
+				null
 
 	case 'ThrowStatement':
 		return findNode(js.argument, predicate)
@@ -64,28 +64,28 @@ function findNode(js, predicate) {
 
 	case 'TryStatement':
 		return findNode(js.block, predicate) ||
-					(js.handler != null && findNode(js.handler, predicate)) ||
-					findNode(js.guardedHandlers, predicate) ||
-					(js.finalizer != null && findNode(js.finalizer, predicate)) ||
-					null
+				(js.handler != null && findNode(js.handler, predicate)) ||
+				findNode(js.guardedHandlers, predicate) ||
+				(js.finalizer != null && findNode(js.finalizer, predicate)) ||
+				null
 
 	case 'ForStatement':
 		return (js.init != null && findNode(js.init, predicate)) ||
-					(js.test != null && findNode(js.test, predicate)) ||
-					(js.update != null && findNode(js.update, predicate)) ||
-					findNode(js.body, predicate) ||
-					null
+				(js.test != null && findNode(js.test, predicate)) ||
+				(js.update != null && findNode(js.update, predicate)) ||
+				findNode(js.body, predicate) ||
+				null
 
 	case 'ForInStatement':
 		return findNode(js.left, predicate) ||
-					findNode(js.right, predicate) ||
-					findNode(js.body, predicate) ||
-					null
+				findNode(js.right, predicate) ||
+				findNode(js.body, predicate) ||
+				null
 
 	case 'SwitchStatement':
 		return findNode(js.discriminant, predicate) ||
-					findNode(js.cases, predicate) ||
-					null
+				findNode(js.cases, predicate) ||
+				null
 
 	case 'SwitchCase':
 		return findNode(js.consequent, predicate)
@@ -95,16 +95,16 @@ function findNode(js, predicate) {
 
 	case 'CatchClause':
 		return (js.param != null && findNode(js.param, predicate)) ||
-					findNode(js.body, predicate) ||
-					null
+				findNode(js.body, predicate) ||
+				null
 
 	case 'VariableDeclaration':
 		return findNode(js.declarations, predicate)
 
 	case 'VariableDeclarator':
 		return findNode(js.id, predicate) ||
-					(js.init != null && findNode(js.init, predicate)) ||
-					null
+				(js.init != null && findNode(js.init, predicate)) ||
+				null
 
 	case 'ObjectProperty':
 		return findNode(js.value, predicate)
@@ -138,9 +138,9 @@ function findNode(js, predicate) {
 
 	case 'ConditionalExpression':
 		return findNode(js.test, predicate) ||
-					findNode(js.consequent, predicate) ||
-					findNode(js.alternate, predicate) ||
-					null
+				findNode(js.consequent, predicate) ||
+				findNode(js.alternate, predicate) ||
+				null
 
 	case 'LogicalExpression':
 		return findNode(js.left, predicate) || findNode(js.right, predicate) || null
