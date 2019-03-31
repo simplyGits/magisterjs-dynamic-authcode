@@ -1,4 +1,5 @@
 const https = require('https')
+const getAuthcodeFromNet = require('./source-parser/getAuthcode.js')
 
 const URL = 'https://raw.githubusercontent.com/simplyGits/magisterjs-authcode/master/code.json'
 
@@ -33,10 +34,8 @@ const req = function (timeout) {
 	})
 }
 
-module.exports = async function (timeout = 1500) {
-	try {
-		return await req(timeout)
-	} catch (e) {
-		return require('@magisterjs/authcode')
-	}
+module.exports = function (timeout = 1500) {
+	return getAuthcodeFromNet(timeout)
+		.catch(() => req(timeout))
+		.catch(() => require('@magisterjs/authcode'))
 }

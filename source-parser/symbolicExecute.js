@@ -214,8 +214,6 @@ const executors = {
 
 function exec(env, js) {
 	if (js.type in executors) {
-		// console.log("Executing " + js.type, env);
-		// console.log(js);
 		return executors[js.type](env, js)
 	} else {
 		throw new Error('No executor defined for AST node type ' + js.type)

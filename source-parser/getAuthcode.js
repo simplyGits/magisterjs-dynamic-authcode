@@ -173,7 +173,6 @@ function findNode(js, predicate) {
 		return null
 
 	default:
-		console.log(js)
 		throw new Error('Unhandled node type in findNode: ' + js.type)
 	}
 }
@@ -432,8 +431,8 @@ function getAuthcode(js) {
 	return authcode
 }
 
-async function getAuthcodeFromNet() {
-	const text = await getAccountJS()
+async function getAuthcodeFromNet(timeout) {
+	const text = await getAccountJS(timeout)
 	return getAuthcode(babelParser.parse(text))
 }
 

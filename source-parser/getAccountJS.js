@@ -24,7 +24,6 @@ function generateID() {
 	const template = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'
 	const alphabet = '0123456789abcdef'
 
-	const n = 0
 	let res = ''
 
 	for (let i = 0; i < template.length; i++) {
@@ -38,13 +37,13 @@ function generateID() {
 	return res
 }
 
-async function openidConfiguration() {
+async function openidConfiguration(timeout) {
 	const url = accountsUrl + '/.well-known/openid-configuration'
-	return JSON.parse(await fetchText(url))
+	return JSON.parse(await fetchText(url, timeout))
 }
 
-async function getLoginHTML() {
-	const config = await openidConfiguration()
+async function getLoginHTML(timeout) {
+	const config = await openidConfiguration(timeout)
 	const authorizeEndpoint = config.authorization_endpoint
 
 	const url = buildURL(authorizeEndpoint, {
@@ -56,11 +55,11 @@ async function getLoginHTML() {
 		'nonce': generateID(),
 	})
 
-	return await fetchText(url)
+	return await fetchText(url, timeout)
 }
 
-async function getJSurl() {
-	const html = await getLoginHTML()
+async function getJSurl(timeout) {
+	const html = await getLoginHTML(timeout)
 
 	const handler = new htmlparser.DefaultHandler(function(err, dom) {
 		if (err) {
@@ -79,10 +78,8 @@ async function getJSurl() {
 	throw new Error('Script element not found in page')
 }
 
-async function getAccountJS() {
-	return await fetchText(await getJSurl())
+async function getAccountJS(timeout) {
+	return await fetchText(await getJSurl(timeout), timeout)
 }
 
 module.exports = getAccountJS
-
-// getAuthcode().then(r => console.log(r));
